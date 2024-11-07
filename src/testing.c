@@ -1,12 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <emmintrin.h>
-#define N 1200
+#define N 1400
 #include <time.h>
 
 double res[N][N] __attribute__ ((aligned(64)));
 double mul1[N][N] __attribute__ ((aligned(64)));
 double mul2[N][N] __attribute__ ((aligned(64)));
+double mul1_test[N][N];
+double mul2_test[N][N];
+double result[N][N];
 #define CLS 64
 #define SM (CLS / sizeof (double))
 
@@ -19,6 +22,23 @@ int main (void){
             mul2[a][b] = a-b;
         }
     }
+    for (int a = 0; a < N; a += 1){
+        for (int b = 0; b < N; b += 1){
+            mul1_test[a][b] = a+b;
+            mul2_test[a][b] = a-b;
+        }
+    }
+    start= clock(); 
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            for (int k = 0; k < N; k++) {
+                result[i][j] += mul1_test[i][k] * mul2_test[k][j];
+            }
+        }
+    }
+    end = clock();
+    cpu_time_used = ((double)(end-start)) / CLOCKS_PER_SEC;
+    printf("time taken: for normal %f seconds \n", cpu_time_used);
     start=clock();
     int i, i2, j, j2, k, k2;
     double *restrict rres;
@@ -49,6 +69,5 @@ int main (void){
     end = clock();
     cpu_time_used = ((double)(end-start)) / CLOCKS_PER_SEC;
     printf("time taken: %f seconds \n", cpu_time_used);
-    return 0;
 }
    

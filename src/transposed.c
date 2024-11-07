@@ -20,11 +20,16 @@ int main(){
     for (int i = 0; i < N; ++i)
         for (int j = 0; j < N; ++j)
             result[i][j] = 0.0;
+    int i, j, k;
     start= clock(); 
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            for (int k = 0; k < N; k++) {
-                result[i][j] += mul1_test[i][k] * mul2_test[k][j];
+    double tmp[N][N];
+    for (i = 0; i < N; ++i)
+        for (j = 0; j < N; ++j)
+            tmp[i][j] = mul2_test[j][i];
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++) {
+            for (k = 0; k < N; k++) {
+                result[i][j] += mul1_test[i][k] * tmp[k][j];
             }
         }
     }
@@ -33,5 +38,5 @@ int main(){
     end = clock();
     cpu_end_time = ((double)(end - start)) / CLOCKS_PER_SEC;
     
-    printf("time taken: %f seconds \n", cpu_end_time);
+    printf("time for transposed taken: %f seconds \n", cpu_end_time);
 }

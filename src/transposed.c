@@ -17,9 +17,6 @@ int main(){
             mul2_test[a][b] = a-b;
         }
     }
-    for (int i = 0; i < N; ++i)
-        for (int j = 0; j < N; ++j)
-            result[i][j] = 0.0;
     int i, j, k;
     start= clock(); 
     double tmp[N][N];
@@ -28,6 +25,7 @@ int main(){
             tmp[i][j] = mul2_test[j][i];
     for (i = 0; i < N; i++) {
         for (j = 0; j < N; j++) {
+		result[i][j] = 0.0;
             for (k = 0; k < N; k++) {
                 result[i][j] += mul1_test[i][k] * tmp[k][j];
             }

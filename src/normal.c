@@ -17,12 +17,10 @@ int main(){
             mul2_test[a][b] = a-b;
         }
     }
-    for (int i = 0; i < N; ++i)
-        for (int j = 0; j < N; ++j)
-            result[i][j] = 0.0;
     start= clock(); 
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
+		result[i][j] = 0.0;
             for (int k = 0; k < N; k++) {
                 result[i][j] += mul1_test[i][k] * mul2_test[k][j];
             }
